@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InMemoryCatalog.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSD2101 Lab03 Bookstore</a> &gt; <a href="index.source.html" class="el_package">edu.cssd2101.lab03</a> &gt; <span class="el_source">InMemoryCatalog.java</span></div><h1>InMemoryCatalog.java</h1><pre class="source lang-java linenums">package edu.cssd2101.lab03;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+
+/** Monitor-guarded adapter; map, values, and version share one synchronization policy. */
+public final class InMemoryCatalog implements Catalog {
+<span class="fc" id="L12">    private final Map&lt;String, Material&gt; materials = new LinkedHashMap&lt;&gt;();</span>
+    private long version;
+
+    /** Creates an empty catalog at version zero. */
+<span class="fc" id="L16">    public InMemoryCatalog() {}</span>
+
+    @Override
+    public synchronized Optional&lt;Change&gt; add(Material material) {
+<span class="fc" id="L20">        Objects.requireNonNull(material);</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (materials.containsKey(material.id())) {</span>
+<span class="fc" id="L22">            return Optional.empty();</span>
+        }
+<span class="fc" id="L24">        long next = Math.incrementExact(version);</span>
+<span class="fc" id="L25">        materials.put(material.id(), material);</span>
+<span class="fc" id="L26">        version = next;</span>
+<span class="fc" id="L27">        return Optional.of(new Change(next, Optional.empty(), Optional.of(material)));</span>
+    }
+
+    @Override
+    public synchronized Optional&lt;Change&gt; update(Material material) {
+<span class="nc" id="L32">        Objects.requireNonNull(material);</span>
+<span class="nc" id="L33">        Material oldMaterial = materials.get(material.id()); // Creates old materials for Optional&lt;Change&gt; comparison</span>
+<span class="nc bnc" id="L34" title="All 4 branches missed.">        if (oldMaterial == null || oldMaterial.equals(material))</span>
+<span class="nc" id="L35">            return Optional.empty();</span>
+
+        // Increments catalog version and updates element
+<span class="nc" id="L38">        long next = Math.incrementExact(version);</span>
+<span class="nc" id="L39">        materials.put(material.id(), material);</span>
+<span class="nc" id="L40">        version = next;</span>
+
+<span class="nc" id="L42">        return Optional.of(new Change(next, Optional.of(oldMaterial), Optional.of(material)));</span>
+    }
+
+    @Override
+    public synchronized Optional&lt;Change&gt; remove(String id) {
+<span class="nc" id="L47">        String key = Material.normalizeId((id));</span>
+<span class="nc" id="L48">        Material removedItem = materials.get(key);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (removedItem == null) {</span>
+<span class="nc" id="L50">            return Optional.empty();</span>
+        }
+
+        // Increments catalog version and removes element
+<span class="nc" id="L54">        long next = Math.incrementExact(version);</span>
+<span class="nc" id="L55">        materials.remove(key);</span>
+<span class="nc" id="L56">        version = next;</span>
+
+<span class="nc" id="L58">        return Optional.of(new Change(next, Optional.of(removedItem), Optional.empty()));</span>
+    }
+
+    @Override
+    public synchronized Snapshot snapshot() {
+<span class="fc" id="L63">        return new Snapshot(version, new ArrayList&lt;&gt;(materials.values()));</span>
+    }
+
+    @Override
+    public synchronized Snapshot replaceAll(List&lt;Material&gt; replacement) {
+<span class="nc" id="L68">        Snapshot replaceSnapshot = new Snapshot(0, replacement);</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (snapshot().materials().equals(replaceSnapshot.materials())){</span>
+<span class="nc" id="L70">            return snapshot();</span>
+        }
+
+        // Increments catalog version and replaces all materials for snapshot.
+<span class="nc" id="L74">        long next = Math.incrementExact(version);</span>
+<span class="nc" id="L75">        materials.clear(); // removes all entries from map to make snapshot immutable.</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        for (Material material : replaceSnapshot.materials()){</span>
+<span class="nc" id="L77">            materials.put(material.id(), material);</span>
+<span class="nc" id="L78">        }</span>
+<span class="nc" id="L79">        version = next;</span>
+
+<span class="nc" id="L81">        return snapshot();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

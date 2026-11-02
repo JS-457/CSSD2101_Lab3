@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrefixIndex.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSD2101 Lab03 Bookstore</a> &gt; <a href="index.source.html" class="el_package">edu.cssd2101.lab03</a> &gt; <span class="el_source">PrefixIndex.java</span></div><h1>PrefixIndex.java</h1><pre class="source lang-java linenums">package edu.cssd2101.lab03;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/** Immutable-after-construction prefix trie over Unicode code points, ordered by catalog ID. */
+public final class PrefixIndex {
+<span class="nc" id="L10">    private static final class Node {</span>
+<span class="nc" id="L11">        private final Map&lt;Integer, Node&gt; children = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L12">        private final List&lt;Material&gt; matches = new ArrayList&lt;&gt;();</span>
+    }
+
+<span class="nc" id="L15">    private final Node root = new Node();</span>
+
+    /**
+     * Builds an index from one validated snapshot, storing matches at every prefix node.
+     *
+     * @param snapshot source whose ID order defines deterministic result order
+     */
+<span class="nc" id="L22">    public PrefixIndex(Snapshot snapshot) {</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        for (Material material : snapshot.materials()) {</span>
+<span class="nc" id="L24">            Node current = root;</span>
+<span class="nc" id="L25">            current.matches.add(material);</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">            for (int point : Material.searchKey(material.title()).codePoints().toArray()) {</span>
+<span class="nc" id="L27">                current = current.children.computeIfAbsent(point, unused -&gt; new Node());</span>
+<span class="nc" id="L28">                current.matches.add(material);</span>
+            }
+<span class="nc" id="L30">        }</span>
+<span class="nc" id="L31">    }</span>
+
+    /**
+     * Finds the entire-title prefix; an empty key matches every indexed item.
+     *
+     * @param prefix raw query, normalized using Material.searchKey
+     * @param limit nonnegative maximum results
+     * @return detached immutable list, including an empty result for zero limit
+     * @throws IllegalArgumentException for negative limits
+     * @throws NullPointerException for a null query
+     */
+    public List&lt;Material&gt; search(String prefix, int limit) {
+        // TODO T5: implement the documented contract; see the acceptance tests.
+<span class="nc" id="L44">        throw new UnsupportedOperationException(&quot;TODO T5&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

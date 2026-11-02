@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DiscountChain.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSD2101 Lab03 Bookstore</a> &gt; <a href="index.source.html" class="el_package">edu.cssd2101.lab03</a> &gt; <span class="el_source">DiscountChain.java</span></div><h1>DiscountChain.java</h1><pre class="source lang-java linenums">package edu.cssd2101.lab03;
+
+import java.util.Optional;
+
+/** Immutable Chain of Responsibility: Manager 15%, Director 25%, VP 40%, then refusal. */
+public final class DiscountChain {
+<span class="nc" id="L7">    private record Handler(String role, int maximum, Handler next) {</span>
+        Optional&lt;String&gt; approve(int rate) {
+<span class="nc bnc" id="L9" title="All 2 branches missed.">            if (rate &lt;= maximum) {</span>
+<span class="nc" id="L10">                return Optional.of(role);</span>
+            }
+<span class="nc bnc" id="L12" title="All 2 branches missed.">            return next == null ? Optional.empty() : next.approve(rate);</span>
+        }
+    }
+
+<span class="nc" id="L16">    private final Handler first =</span>
+            new Handler(
+                    &quot;Manager&quot;, 1500, new Handler(&quot;Director&quot;, 2500, new Handler(&quot;VP&quot;, 4000, null)));
+
+    /** Creates the fixed, acyclic approval chain used by this lab. */
+<span class="nc" id="L21">    public DiscountChain() {}</span>
+
+    /**
+     * Decision retains the requested rate and final price without mutating any material.
+     *
+     * @param approvedBy approving role, or empty when declined
+     * @param basisPoints original requested rate
+     * @param finalCents approved discounted price, or original price when declined
+     */
+<span class="nc" id="L30">    public record Decision(Optional&lt;String&gt; approvedBy, int basisPoints, long finalCents) {}</span>
+
+    /**
+     * Selects the first authorized handler; invalid input is rejected rather than clamped.
+     *
+     * @param priceCents nonnegative original price
+     * @param basisPoints request in 0..10000
+     * @return immutable decision
+     * @throws IllegalArgumentException for an invalid amount or rate
+     */
+    public Decision decide(long priceCents, int basisPoints) {
+        // TODO T4: implement the documented contract; see the acceptance tests.
+<span class="nc" id="L42">        throw new UnsupportedOperationException(&quot;TODO T4&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

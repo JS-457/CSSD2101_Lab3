@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Events.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSD2101 Lab03 Bookstore</a> &gt; <a href="index.source.html" class="el_package">edu.cssd2101.lab03</a> &gt; <span class="el_source">Events.java</span></div><h1>Events.java</h1><pre class="source lang-java linenums">package edu.cssd2101.lab03;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Consumer;
+
+/** Synchronous Observer adapter with snapshot iteration and explicit unsubscription. */
+public final class Events implements EventSink {
+<span class="nc" id="L10">    private final CopyOnWriteArrayList&lt;Consumer&lt;Change&gt;&gt; listeners = new CopyOnWriteArrayList&lt;&gt;();</span>
+
+    /** Creates an event bus without observers. */
+<span class="nc" id="L13">    public Events() {}</span>
+
+    /** Subscription owned by its caller; closing more than once is harmless. */
+    @FunctionalInterface
+    public interface Subscription extends AutoCloseable {
+        /** Removes this registration without checked exceptions. */
+        @Override
+        void close();
+    }
+
+    /**
+     * Adds one independent registration. Callbacks may execute concurrently across publishers.
+     *
+     * @param listener nonnull callback; synchronize its mutable state if needed
+     * @return caller-owned subscription
+     */
+    public Subscription subscribe(Consumer&lt;Change&gt; listener) {
+<span class="nc" id="L30">        Objects.requireNonNull(listener);</span>
+<span class="nc" id="L31">        Consumer&lt;Change&gt; registration = change -&gt; listener.accept(change);</span>
+<span class="nc" id="L32">        listeners.add(registration);</span>
+<span class="nc" id="L33">        return () -&gt; listeners.remove(registration);</span>
+    }
+
+    @Override
+    public List&lt;RuntimeException&gt; publish(Change change) {
+        // TODO T4: implement the documented contract; see the acceptance tests.
+<span class="nc" id="L39">        throw new UnsupportedOperationException(&quot;TODO T4&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

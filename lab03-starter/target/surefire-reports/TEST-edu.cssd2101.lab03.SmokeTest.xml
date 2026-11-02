@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="edu.cssd2101.lab03.SmokeTest" time="0.095" tests="2" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="27"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\test-classes;D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\classes;C:\Users\sayed\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.20.1\jackson-databind-2.20.1.jar;C:\Users\sayed\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.20\jackson-annotations-2.20.jar;C:\Users\sayed\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.20.1\jackson-core-2.20.1.jar;C:\Users\sayed\.m2\repository\org\junit\jupiter\junit-jupiter\6.1.3\junit-jupiter-6.1.3.jar;C:\Users\sayed\.m2\repository\org\junit\jupiter\junit-jupiter-api\6.1.3\junit-jupiter-api-6.1.3.jar;C:\Users\sayed\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\sayed\.m2\repository\org\junit\platform\junit-platform-commons\6.1.3\junit-platform-commons-6.1.3.jar;C:\Users\sayed\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\sayed\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\sayed\.m2\repository\org\junit\jupiter\junit-jupiter-params\6.1.3\junit-jupiter-params-6.1.3.jar;C:\Users\sayed\.m2\repository\org\junit\jupiter\junit-jupiter-engine\6.1.3\junit-jupiter-engine-6.1.3.jar;C:\Users\sayed\.m2\repository\org\junit\platform\junit-platform-engine\6.1.3\junit-platform-engine-6.1.3.jar"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="27"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="CA"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-27\bin"/>
+    <property name="sun.java.command" value="C:\Users\sayed\AppData\Local\Temp\surefire15802903360303206268\surefirebooter-20261101195451033_3.jar C:\Users\sayed\AppData\Local\Temp\surefire15802903360303206268 2026-11-01T19-54-50_932-jvmRun1 surefire-20261101195451033_1tmp surefire_0-20261101195451033_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\test-classes;D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\classes;C:\Users\sayed\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.20.1\jackson-databind-2.20.1.jar;C:\Users\sayed\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.20\jackson-annotations-2.20.jar;C:\Users\sayed\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.20.1\jackson-core-2.20.1.jar;C:\Users\sayed\.m2\repository\org\junit\jupiter\junit-jupiter\6.1.3\junit-jupiter-6.1.3.jar;C:\Users\sayed\.m2\repository\org\junit\jupiter\junit-jupiter-api\6.1.3\junit-jupiter-api-6.1.3.jar;C:\Users\sayed\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\sayed\.m2\repository\org\junit\platform\junit-platform-commons\6.1.3\junit-platform-commons-6.1.3.jar;C:\Users\sayed\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\sayed\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\sayed\.m2\repository\org\junit\jupiter\junit-jupiter-params\6.1.3\junit-jupiter-params-6.1.3.jar;C:\Users\sayed\.m2\repository\org\junit\jupiter\junit-jupiter-engine\6.1.3\junit-jupiter-engine-6.1.3.jar;C:\Users\sayed\.m2\repository\org\junit\platform\junit-platform-engine\6.1.3\junit-platform-engine-6.1.3.jar"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\sayed"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-09-15"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-27"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\sayed\AppData\Local\Temp\surefire15802903360303206268\surefirebooter-20261101195451033_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="27+35-2325"/>
+    <property name="user.name" value="King Galactix"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\sayed\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\sayed\AppData\Local\Temp\"/>
+    <property name="java.version" value="27"/>
+    <property name="user.dir" value="D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-27\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Java\jdk-27\bin;C:\Program Files\Java\jdk-27\bin\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Autodesk Shared\;C:\Program Files\Java\jdk-27\bin;D:\Desktop\hd-gif-tools-1.0.0\gifski-1.14.4;D:\Desktop\hd-gif-tools-1.0.0\ffmpeg-2025-12-24-git-abb1524138-essentials_build;C:\msys64\mingw64\bin;C:\Program Files\CMake\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;D:\Git\cmd;D:\Git LFS;C:\Users\sayed\AppData\Local\Programs\Python\Launcher\;C:\Users\sayed\AppData\Local\Microsoft\WindowsApps;C:\Users\sayed\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\sayed\AppData\Local\GitHubDesktop\bin;D:\Desktop\hd-gif-tools-1.0.0\ffmpeg-2025-12-24-git-abb1524138-essentials_build\bin;D:\Desktop\hd-gif-tools-1.0.0\gifski-1.14.4\win;C:\msys64\mingw64\bin;C:\Users\sayed\.dotnet\tools;D:\IntelliJ IDEA 2026.2.3\bin;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="27+35-2325"/>
+    <property name="stdin.encoding" value="Cp1252"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="71.0"/>
+  </properties>
+  <testcase name="baselineSnapshotsAndLeavesAreImmutable" classname="edu.cssd2101.lab03.SmokeTest" time="0.052"/>
+  <testcase name="starterCreatesValuesAndAddsUniqueIds" classname="edu.cssd2101.lab03.SmokeTest" time="0.022"/>
+</testsuite>

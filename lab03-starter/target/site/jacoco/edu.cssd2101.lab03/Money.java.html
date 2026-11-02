@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Money.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSD2101 Lab03 Bookstore</a> &gt; <a href="index.source.html" class="el_package">edu.cssd2101.lab03</a> &gt; <span class="el_source">Money.java</span></div><h1>Money.java</h1><pre class="source lang-java linenums">package edu.cssd2101.lab03;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+/** Checked integer-cent arithmetic with explicit HALF_EVEN rounding. */
+public final class Money {
+    private Money() {}
+
+    /**
+     * Converts a nonnegative decimal dollar string to cents, rounding once.
+     *
+     * @param dollars decimal text, never a binary floating-point value
+     * @return cents
+     * @throws IllegalArgumentException if malformed or negative
+     * @throws ArithmeticException if the result does not fit a long
+     */
+    public static long cents(String dollars) {
+<span class="fc" id="L19">        BigDecimal amount = new BigDecimal(dollars);</span>
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">        if (amount.signum() &lt; 0) {</span>
+<span class="nc" id="L21">            throw new IllegalArgumentException(&quot;negative dollars&quot;);</span>
+        }
+<span class="fc" id="L23">        return amount.movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).longValueExact();</span>
+    }
+
+    /**
+     * Applies basis points to a price; 100 basis points equal one percent.
+     *
+     * @param cents nonnegative original price
+     * @param basisPoints discount in the inclusive range 0..10000
+     * @return rounded final price
+     * @throws IllegalArgumentException for a negative price or invalid rate
+     */
+    public static long discounted(long cents, int basisPoints) {
+<span class="nc bnc" id="L35" title="All 4 branches missed.">        if (basisPoints &lt; 0 || basisPoints &gt; 10000) throw new IllegalArgumentException(&quot;Basis points must be in between 0 and 10000 (inclusive).&quot;);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (cents &lt; 0L) throw new IllegalArgumentException(&quot;Cents must be nonnegative.&quot;);</span>
+
+<span class="nc" id="L38">        return BigDecimal.valueOf(cents).multiply(BigDecimal.valueOf(10000L - basisPoints)).divide(BigDecimal.valueOf(10000L),0, RoundingMode.HALF_EVEN).longValueExact();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

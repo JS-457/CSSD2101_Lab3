@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddOn.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSD2101 Lab03 Bookstore</a> &gt; <a href="index.source.html" class="el_package">edu.cssd2101.lab03</a> &gt; <span class="el_source">AddOn.java</span></div><h1>AddOn.java</h1><pre class="source lang-java linenums">package edu.cssd2101.lab03;
+
+import java.util.Objects;
+
+/**
+ * Decorator adding a fixed fee to any component, including an entire bundle.
+ *
+ * @param label nonblank feature name
+ * @param wrapped existing immutable component
+ * @param feeCents nonnegative surcharge
+ */
+public record AddOn(String label, Component wrapped, long feeCents) implements Component {
+    /**
+     * Validates the decorator; repeated add-ons are allowed and charged independently.
+     *
+     * @param label feature name
+     * @param wrapped delegated component
+     * @param feeCents nonnegative surcharge
+     * @throws IllegalArgumentException for a blank label or negative fee
+     * @throws NullPointerException for null label or wrapped node
+     */
+<span class="nc" id="L22">    public AddOn {</span>
+<span class="nc" id="L23">        label = Objects.requireNonNull(label).strip();</span>
+<span class="nc" id="L24">        Objects.requireNonNull(wrapped);</span>
+<span class="nc bnc" id="L25" title="All 4 branches missed.">        if (label.isEmpty() || feeCents &lt; 0) {</span>
+<span class="nc" id="L26">            throw new IllegalArgumentException(&quot;invalid add-on&quot;);</span>
+        }
+<span class="nc" id="L28">    }</span>
+
+    @Override
+    public long priceCents() {
+        // TODO T3: implement the documented contract; see the acceptance tests.
+<span class="nc" id="L33">        throw new UnsupportedOperationException(&quot;TODO T3&quot;);</span>
+    }
+
+    @Override
+    public &lt;R&gt; R accept(ComponentVisitor&lt;R&gt; visitor) {
+<span class="nc" id="L38">        return visitor.visit(this);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSD2101 Lab03 Bookstore</a> &gt; <a href="index.source.html" class="el_package">edu.cssd2101.lab03</a> &gt; <span class="el_source">SearchService.java</span></div><h1>SearchService.java</h1><pre class="source lang-java linenums">package edu.cssd2101.lab03;
+
+import java.util.List;
+import java.util.Objects;
+
+/** Serialized search adapter that rebuilds and invalidates when its source version changes. */
+public final class SearchService {
+<span class="nc" id="L8">    private record Query(String prefix, int limit) {}</span>
+
+    private final Catalog catalog;
+    private final LruCache&lt;Query, List&lt;Material&gt;&gt; cache;
+    private PrefixIndex index;
+<span class="nc" id="L13">    private long indexedVersion = -1;</span>
+    private long builds;
+
+    /**
+     * Borrows a catalog and owns a bounded query cache.
+     *
+     * @param catalog snapshot source
+     * @param capacity positive cache capacity
+     */
+<span class="nc" id="L22">    public SearchService(Catalog catalog, int capacity) {</span>
+<span class="nc" id="L23">        this.catalog = Objects.requireNonNull(catalog);</span>
+<span class="nc" id="L24">        cache = new LruCache&lt;&gt;(capacity);</span>
+<span class="nc" id="L25">    }</span>
+
+    /**
+     * Searches one snapshot; a concurrent later write may appear on the next call. Validation
+     * precedes counters or state changes. Every limit participates in the key.
+     *
+     * @param prefix raw query
+     * @param limit nonnegative result limit
+     * @return immutable ID-ordered result
+     * @throws IllegalArgumentException for a negative limit
+     * @throws NullPointerException for a null prefix
+     */
+    public synchronized List&lt;Material&gt; search(String prefix, int limit) {
+        // TODO T5: implement the documented contract; see the acceptance tests.
+<span class="nc" id="L39">        throw new UnsupportedOperationException(&quot;TODO T5&quot;);</span>
+    }
+
+    /**
+     * Reports lifetime cache statistics.
+     *
+     * @return immutable counters
+     */
+    public synchronized LruCache.Stats cacheStats() {
+<span class="nc" id="L48">        return cache.stats();</span>
+    }
+
+    /**
+     * Reports completed index builds, including the initial empty catalog if queried.
+     *
+     * @return number of builds
+     */
+    public synchronized long builds() {
+<span class="nc" id="L57">        return builds;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

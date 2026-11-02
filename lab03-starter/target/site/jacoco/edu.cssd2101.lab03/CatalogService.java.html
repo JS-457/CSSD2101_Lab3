@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSD2101 Lab03 Bookstore</a> &gt; <a href="index.source.html" class="el_package">edu.cssd2101.lab03</a> &gt; <span class="el_source">CatalogService.java</span></div><h1>CatalogService.java</h1><pre class="source lang-java linenums">package edu.cssd2101.lab03;
+
+import java.io.IOException;
+import java.util.Objects;
+import java.util.Optional;
+
+/** Application use cases depending on three ports supplied by the composition root. */
+public final class CatalogService {
+    private final Catalog catalog;
+    private final CatalogRepository repository;
+    private final EventSink events;
+
+    /**
+     * Outcome distinguishes a committed mutation from observer delivery failures.
+     *
+     * @param changed whether inventory changed
+     * @param observerFailures number of failed callbacks
+     */
+<span class="nc" id="L19">    public record Result(boolean changed, int observerFailures) {}</span>
+
+    /**
+     * Borrows dependencies; this service does not close externally supplied resources.
+     *
+     * @param catalog inventory port
+     * @param repository persistence port
+     * @param events event publication port
+     */
+<span class="nc" id="L28">    public CatalogService(Catalog catalog, CatalogRepository repository, EventSink events) {</span>
+<span class="nc" id="L29">        this.catalog = Objects.requireNonNull(catalog);</span>
+<span class="nc" id="L30">        this.repository = Objects.requireNonNull(repository);</span>
+<span class="nc" id="L31">        this.events = Objects.requireNonNull(events);</span>
+<span class="nc" id="L32">    }</span>
+
+    /**
+     * Adds and then publishes outside the catalog lock.
+     *
+     * @param material new value
+     * @return mutation and delivery result
+     */
+    public Result add(Material material) {
+<span class="nc" id="L41">        return report(catalog.add(material));</span>
+    }
+
+    /**
+     * Updates and then publishes outside the catalog lock.
+     *
+     * @param material replacement value
+     * @return mutation and delivery result
+     */
+    public Result update(Material material) {
+<span class="nc" id="L51">        return report(catalog.update(material));</span>
+    }
+
+    /**
+     * Removes and then publishes outside the catalog lock.
+     *
+     * @param id normalized or raw ID
+     * @return mutation and delivery result
+     */
+    public Result remove(String id) {
+<span class="nc" id="L61">        return report(catalog.remove(id));</span>
+    }
+
+    private Result report(Optional&lt;Change&gt; change) {
+<span class="nc" id="L65">        return change.map(value -&gt; new Result(true, events.publish(value).size()))</span>
+<span class="nc" id="L66">                .orElse(new Result(false, 0));</span>
+    }
+
+    /**
+     * Exports a single snapshot; later concurrent edits are outside this save operation.
+     *
+     * @throws IOException if persistence fails; inventory remains unchanged
+     */
+    public void save() throws IOException {
+<span class="nc" id="L75">        repository.save(catalog.snapshot().materials());</span>
+<span class="nc" id="L76">    }</span>
+
+    /**
+     * Loads and validates before replacing the inventory; no per-material events are emitted. This
+     * administrative operation requires callers to coordinate competing user edits.
+     *
+     * @return restored snapshot with a local version, never a persisted version
+     * @throws IOException if loading fails; inventory remains unchanged
+     */
+    public Snapshot restore() throws IOException {
+<span class="nc" id="L86">        return catalog.replaceAll(repository.load());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

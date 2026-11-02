@@ -1,0 +1,50 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+--no-fonts
+-classpath
+'C:/Users/sayed/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.20.1/jackson-databind-2.20.1.jar;C:/Users/sayed/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.20/jackson-annotations-2.20.jar;C:/Users/sayed/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.20.1/jackson-core-2.20.1.jar'
+-encoding
+'UTF-8'
+-protected
+--release
+26
+-sourcepath
+'D:/Dev/CSSD-2101_Object_Oriented_Programming/lab03-starter/src/main/java;D:/Dev/CSSD-2101_Object_Oriented_Programming/lab03-starter/target/generated-sources/annotations'
+-author
+-bottom
+'Copyright &#169; 2026. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'D:/Dev/CSSD-2101_Object_Oriented_Programming/lab03-starter/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-Xdoclint:all
+-doctitle
+'CSSD2101 Lab03 Bookstore 2026.1 API'
+-use
+-version
+-windowtitle
+'CSSD2101 Lab03 Bookstore 2026.1 API'
+edu.cssd2101.lab03
+C:\Users\sayed\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.20.1\jackson-databind-2.20.1.jar = 1793204106174
+C:\Users\sayed\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.20\jackson-annotations-2.20.jar = 1793204105969
+C:\Users\sayed\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.20.1\jackson-core-2.20.1.jar = 1793204106088
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\src\main\java = 1793569871762
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\generated-sources\annotations = 1793580889960
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\allclasses-index.html = 1793580894360
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\allpackages-index.html = 1793580894361
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\constant-values.html = 1793580894263
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\element-list = 1793580894246
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\help-doc.html = 1793580894406
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\index-all.html = 1793580894392
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\index.html = 1793580894403
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\member-search-index.js = 1793580894366
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\module-search-index.js = 1793580894362
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\overview-tree.html = 1793580894344
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\package-search-index.js = 1793580894363
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\search.html = 1793580894401
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\tag-search-index.js = 1793580894366
+D:\Dev\CSSD-2101_Object_Oriented_Programming\lab03-starter\target\reports\apidocs\type-search-index.js = 1793580894364

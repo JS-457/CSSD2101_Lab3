@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LruCache.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSD2101 Lab03 Bookstore</a> &gt; <a href="index.source.html" class="el_package">edu.cssd2101.lab03</a> &gt; <span class="el_source">LruCache.java</span></div><h1>LruCache.java</h1><pre class="source lang-java linenums">package edu.cssd2101.lab03;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Monitor-guarded bounded access-order cache. Keys and values must be immutable or externally
+ * owned.
+ *
+ * @param &lt;K&gt; key type
+ * @param &lt;V&gt; value type
+ */
+public final class LruCache&lt;K, V&gt; {
+    private final int capacity;
+<span class="nc" id="L16">    private final LinkedHashMap&lt;K, V&gt; entries = new LinkedHashMap&lt;&gt;(16, 0.75f, true);</span>
+    private long hits;
+    private long misses;
+    private long evictions;
+
+    /**
+     * Creates an empty bounded cache.
+     *
+     * @param capacity strictly positive maximum entry count
+     * @throws IllegalArgumentException for a nonpositive capacity
+     */
+<span class="nc" id="L27">    public LruCache(int capacity) {</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if (capacity &lt; 1) {</span>
+<span class="nc" id="L29">            throw new IllegalArgumentException(&quot;capacity must be positive&quot;);</span>
+        }
+<span class="nc" id="L31">        this.capacity = capacity;</span>
+<span class="nc" id="L32">    }</span>
+
+    /**
+     * Looks up and promotes a hit to most recently used.
+     *
+     * @param key nonnull key
+     * @return cached value, or empty on a miss
+     */
+    public synchronized Optional&lt;V&gt; get(K key) {
+        // TODO T5: implement the documented contract; see the acceptance tests.
+<span class="nc" id="L42">        throw new UnsupportedOperationException(&quot;TODO T5&quot;);</span>
+    }
+
+    /**
+     * Inserts or updates, evicting at most one least-recently-used entry afterward.
+     *
+     * @param key nonnull key
+     * @param value nonnull value
+     */
+    public synchronized void put(K key, V value) {
+        // TODO T5: implement the documented contract; see the acceptance tests.
+<span class="nc" id="L53">        throw new UnsupportedOperationException(&quot;TODO T5&quot;);</span>
+    }
+
+    /** Removes entries while retaining lifetime hit, miss, and eviction counts. */
+    public synchronized void clear() {
+<span class="nc" id="L58">        entries.clear();</span>
+<span class="nc" id="L59">    }</span>
+
+    /**
+     * Returns current access order without promoting any entry.
+     *
+     * @return least to most recently used keys
+     */
+    public synchronized List&lt;K&gt; keys() {
+<span class="nc" id="L67">        return List.copyOf(entries.keySet());</span>
+    }
+
+    /**
+     * Captured cache counters; invalidation is distinct from capacity eviction.
+     *
+     * @param hits successful lookups
+     * @param misses unsuccessful lookups
+     * @param evictions capacity-driven removals
+     * @param size current entry count
+     */
+<span class="nc" id="L78">    public record Stats(long hits, long misses, long evictions, int size) {}</span>
+
+    /**
+     * Obtains counters and size atomically.
+     *
+     * @return immutable statistics
+     */
+    public synchronized Stats stats() {
+<span class="nc" id="L86">        return new Stats(hits, misses, evictions, entries.size());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
