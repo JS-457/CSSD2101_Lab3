@@ -29,8 +29,8 @@ public record AddOn(String label, Component wrapped, long feeCents) implements C
 
     @Override
     public long priceCents() {
-        // TODO T3: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T3");
+        long wrappedCents = wrapped.priceCents();
+        return Math.addExact(wrappedCents, feeCents);
     }
 
     @Override
