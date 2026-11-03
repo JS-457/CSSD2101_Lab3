@@ -55,6 +55,6 @@ public final class BundleBuilder {
      */
     public Bundle build() {
         // TODO T3: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T3");
+       return new Bundle(name, children, basisPoints);
     }
 }
