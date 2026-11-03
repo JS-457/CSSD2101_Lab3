@@ -40,7 +40,13 @@ public final class PrefixIndex {
      * @throws NullPointerException for a null query
      */
     public List<Material> search(String prefix, int limit) {
-        // TODO T5: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T5");
+        String key = Material.searchKey(prefix);
+        if (limit < 0) throw new IllegalArgumentException("negative limit");
+        Node current = root;
+        for (int point : key.codePoints().toArray()) {
+            current = current.children.get(point);
+            if (current == null) return List.of();
+        }
+        return List.copyOf(current.matches.subList(0, Math.min(limit, current.matches.size())));
     }
 }

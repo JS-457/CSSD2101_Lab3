@@ -35,8 +35,21 @@ public final class SearchService {
      * @throws NullPointerException for a null prefix
      */
     public synchronized List<Material> search(String prefix, int limit) {
-        // TODO T5: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T5");
+        String normalized = Material.searchKey(prefix);
+        if (limit < 0) throw new IllegalArgumentException("negative limit");
+        Snapshot snapshot = catalog.snapshot();
+        if (index == null || indexedVersion != snapshot.version()) {
+            index = new PrefixIndex(snapshot);
+            indexedVersion = snapshot.version();
+            cache.clear();
+            builds++;
+        }
+        Query query = new Query(normalized, limit);
+        var cached = cache.get(query);
+        if (cached.isPresent()) return cached.get();
+        List<Material> result = index.search(normalized, limit);
+        cache.put(query, result);
+        return result;
     }
 
     /**

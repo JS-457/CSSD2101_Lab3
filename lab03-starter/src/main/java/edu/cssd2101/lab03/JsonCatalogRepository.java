@@ -67,8 +67,32 @@ public final class JsonCatalogRepository implements CatalogRepository {
 
     @Override
     public synchronized List<Material> load() throws IOException {
-        // TODO T6: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T6");
+        byte[] bytes;
+        try (var input = Files.newInputStream(path)) {
+            bytes = input.readNBytes(MAX_BYTES + 1);
+        } catch (java.nio.file.NoSuchFileException missing) {
+            return List.of();
+        }
+        if (bytes.length > MAX_BYTES) throw new IOException("document too large");
+        JsonNode document = mapper.readTree(bytes);
+        fields(document, Set.of("schema", "materials"));
+        JsonNode schema = document.get("schema");
+        if (!schema.isIntegralNumber() || !schema.canConvertToInt() || schema.intValue() != 1
+                || !document.get("materials").isArray()) throw new IOException("invalid schema");
+        var values = new java.util.ArrayList<Material>();
+        try {
+            for (JsonNode item : document.get("materials")) {
+                fields(item, Set.of("id", "title", "kind", "cents"));
+                if (!item.get("id").isTextual() || !item.get("title").isTextual()
+                        || !item.get("kind").isTextual() || !item.get("cents").isIntegralNumber()
+                        || !item.get("cents").canConvertToLong()) throw new IOException("invalid material fields");
+                values.add(new Material(item.get("id").textValue(), item.get("title").textValue(),
+                        Material.Kind.valueOf(item.get("kind").textValue()), item.get("cents").longValue()));
+            }
+            return new Snapshot(0, values).materials();
+        } catch (IllegalArgumentException invalid) {
+            throw new IOException("invalid inventory", invalid);
+        }
     }
 
     private static void fields(JsonNode node, Set<String> expected) throws IOException {
@@ -84,7 +108,26 @@ public final class JsonCatalogRepository implements CatalogRepository {
 
     @Override
     public synchronized void save(List<Material> materials) throws IOException {
-        // TODO T6: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T6");
+        List<Material> values = new Snapshot(0, materials).materials();
+        var document = mapper.createObjectNode();
+        document.put("schema", 1);
+        var array = document.putArray("materials");
+        for (Material material : values) {
+            var item = array.addObject();
+            item.put("id", material.id());
+            item.put("title", material.title());
+            item.put("kind", material.kind().name());
+            item.put("cents", material.cents());
+        }
+        byte[] bytes = mapper.writeValueAsBytes(document);
+        if (bytes.length > MAX_BYTES) throw new IOException("document too large");
+        Files.createDirectories(path.getParent());
+        Path temporary = Files.createTempFile(path.getParent(), "catalog-", ".tmp");
+        try {
+            Files.write(temporary, bytes);
+            mover.move(temporary, path);
+        } finally {
+            Files.deleteIfExists(temporary);
+        }
     }
 }
