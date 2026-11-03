@@ -7,14 +7,21 @@ public final class ShippingVisitor implements ComponentVisitor<Long> {
 
     @Override
     public Long visit(Leaf leaf) {
-        // TODO T3: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T3");
+        return switch (leaf.material().kind()) {
+            case BOOK -> 250L;
+            case MAGAZINE -> 200L;
+            case EBOOK, AUDIO, VIDEO -> 0L;
+        };
     }
 
     @Override
     public Long visit(Bundle bundle) {
-        // TODO T3: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T3");
+        long totalCents = 0L;
+        for (Component child : bundle.children()) {
+            long childShippingCents = child.accept(this);
+            totalCents = Math.addExact(totalCents, childShippingCents);
+        }
+        return totalCents;
     }
 
     @Override
