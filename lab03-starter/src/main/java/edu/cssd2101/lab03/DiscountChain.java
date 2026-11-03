@@ -38,7 +38,9 @@ public final class DiscountChain {
      * @throws IllegalArgumentException for an invalid amount or rate
      */
     public Decision decide(long priceCents, int basisPoints) {
-        // TODO T4: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T4");
+        long discountedCents = Money.discounted(priceCents, basisPoints);
+        Optional<String> approver = first.approve(basisPoints);
+        long finalCents = approver.isPresent() ? discountedCents : priceCents;
+        return new Decision(approver, basisPoints, finalCents);
     }
 }
