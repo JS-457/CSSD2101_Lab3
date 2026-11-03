@@ -31,8 +31,11 @@ public record Bundle(String name, List<Component> children, int basisPoints) imp
 
     @Override
     public long priceCents() {
-        // TODO T3: implement the documented contract; see the acceptance tests.
-        throw new UnsupportedOperationException("TODO T3");
+        long subtotalCents = 0L;
+        for (Component child : children) {
+            subtotalCents = Math.addExact(subtotalCents, child.priceCents());
+        }
+        return Money.discounted(subtotalCents, basisPoints);
     }
 
     @Override
